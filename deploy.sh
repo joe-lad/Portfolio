@@ -11,10 +11,10 @@ docker push $REGISTRY/portfolio:latest
 
 echo "🚀 Deploying on Synology..."
 ssh $SYNOLOGY_USER@$SYNOLOGY_IP -p $SYNOLOGY_SSH_PORT "
-  sudo docker pull $REGISTRY/portfolio:latest &&
-  sudo docker stop portfolio &&
-  sudo docker rm portfolio &&
-  sudo docker run -d \
+  sudo /usr/local/bin/docker pull $REGISTRY/portfolio:latest &&
+  sudo /usr/local/bin/docker stop portfolio &&
+  sudo /usr/local/bin/docker rm portfolio &&
+  sudo /usr/local/bin/docker run -d \
     --name portfolio \
     --restart unless-stopped \
     -p 3000:3000 \
