@@ -90,6 +90,8 @@ production:
     database: portfolio_production
     username: portfolio
     password: <%= ENV["PORTFOLIO_DATABASE_PASSWORD"] %>
+    host: <%= ENV["DB_HOST"] %>
+    port: <%= ENV["DB_PORT"] || 5433 %>
   cache:
     <<: *primary_production
     database: portfolio_production_cache
