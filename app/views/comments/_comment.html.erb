@@ -1,0 +1,9 @@
+<% @comments.each do |comment| %>
+  <%= link_to comment_path(comment), class: "card mb-3 text-decoration-none" do %>
+    <div class="card-body">
+        <h5 class="card-title"><%= comment.name %></h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= comment.email %></h6>
+        <p class="card-text"><%= comment.body %></p>
+    </div>
+  <% end %>
+<% end %>

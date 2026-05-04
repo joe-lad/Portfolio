@@ -1,0 +1,13 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"><%= @comment.name %></h5>
+      <h6 class="card-subtitle mb-2 text-muted"><%= @comment.email %></h6>
+      <p class="card-text"><%= @comment.body %></p>
+      <span class="badge <%= @comment.approved? ? 'bg-success' : 'bg-warning' %>">
+        <%= @comment.approved? ? 'Approved' : 'Pending' %>
+      </span>
+    </div>
+  </div>
+  <%= link_to "Back to comments", comments_path, class: "btn btn-outline-secondary mt-3" %>
+</div>
