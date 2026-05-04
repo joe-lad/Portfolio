@@ -1,16 +1,13 @@
 class CommentsController < ApplicationController
-  def new
-    @comment = Comment.new()
+def create
+  @comment = Comment.new(comment_params)
+  if @comment.save
+    redirect_to root_path, notice: "Comment submitted for approval."
+  else
+    flash[:errors] = @comment.errors.full_messages
+    redirect_to root_path(anchor: "leave-a-comment")
   end
-
-  def create
-    @comment = Comment.new(comment_params)
-    if @comment.save
-      redirect_to root_path, notice: "Comment submitted and awaiting approval."
-    else
-      redirect_to root_path, alert: "Something went wrong."
-    end
-  end
+end
 
   private
 

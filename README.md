@@ -60,7 +60,13 @@ sudo apt install -y libpq-dev postgresql-client
 
 ### Scroll spy
 
-`app/javascript/scrollspy.js` — uses `IntersectionObserver` to add `.active` class to sidebar nav links as sections scroll into view.
+`app/javascript/scrollspy.js` — uses `IntersectionObserver` to add `.active` class to sidebar nav links as sections scroll into view. Uses `rootMargin: '-20% 0px -60% 0px'` to create an active zone in the upper portion of the viewport, ensuring only one link is ever active at a time. Picks the topmost visible section when multiple are in view.
+
+### Sidebar (mobile)
+
+`app/views/shared/_sidebar.html.erb` — on mobile (≤640px) the sidebar is hidden off-screen and toggled via a hamburger button. The burger animates into an × when open. Tapping a nav link or the overlay closes it.
+
+`app/javascript/sidebar.js` — uses explicit `open()` / `close()` / `toggle()` functions with event delegation on `document` to survive Turbo navigations. Uses `turbo:load` instead of `DOMContentLoaded` so listeners are re-attached after each Turbo page load.
 
 ### VS Code Extensions
 
@@ -374,10 +380,10 @@ echo "✅ Done! Visit https://jknight.uk"
 ## TODO
 
 - [x] Comment form refactor into `comments/_form.html.erb` partial with `comments/new` route
+- [x] Website responsiveness — mobile sidebar with hamburger menu, scroll spy, hover state fixes
+- [x] Comment validations (no empty fields)
 - [ ] Admin authentication (replace `require_admin!` placeholder — consider Devise or HTTP basic auth)
-- [ ] Website responsiveness (mobile sidebar, responsive cards and layout)
 - [ ] Project show page
-- [ ] Comment validations (no empty fields)
 - [ ] Animations
 - [ ] Uptime comparison widget — Synology vs GitHub using [GitHub Status API](https://www.githubstatus.com/api/v2/status.json)
 
@@ -392,3 +398,6 @@ echo "✅ Done! Visit https://jknight.uk"
 - **DSM updates** can reset `/etc/ssh/sshd_config` — re-verify SSH PATH after major updates
 - **Bootstrap SCSS variables** must be set before `@import 'bootstrap/scss/bootstrap'` to take effect
 - **Propshaft** does not serve from `app/assets/files` — put static downloads like CVs in `public/`
+- **Turbo** intercepts link clicks and does not re-fire `DOMContentLoaded` — use `turbo:load` for all JS initialisation instead
+- **Mobile hover states** — wrap `:hover` styles in `@media (hover: hover)` to prevent sticky tap highlights on touch devices
+- **Comment form** uses `data: { turbo: false }` to bypass Turbo — required for anchor redirects to work on validation failure
