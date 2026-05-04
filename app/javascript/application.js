@@ -6,6 +6,7 @@ import "jquery"
 import "jquery_ujs"
 import jquery from "jquery"
 import "theme"
+import "sidebar"
 import "scrollspy"
 window.$ = jquery
 window.jQuery = jquery

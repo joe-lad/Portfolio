@@ -172,6 +172,10 @@ a:hover {
   overflow-y: auto;
 }
 
+.bottom-padding {
+  min-height: 50vh;
+}
+
 .sidebar-name {
   font-size: 1.3rem;
   font-weight: 600;
@@ -200,7 +204,13 @@ a:hover {
   transition: all 0.2s;
 }
 
-.sidebar-link:hover,
+@media (hover: hover) {
+  .sidebar-link:hover {
+    color: var(--color-accent);
+    background-color: rgba(74, 158, 255, 0.08);
+  }
+}
+
 .sidebar-link.active {
   color: var(--color-accent);
   background-color: rgba(74, 158, 255, 0.08);
@@ -246,6 +256,74 @@ a:hover {
   background-color: var(--color-bg-surface-dark);
   border-color: var(--color-border-dark);
 }
+
+/* burger button — hidden on desktop */
+.burger-btn {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 101;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  width: 40px;
+  height: 40px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 0;
+}
+.burger-btn span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--color-fg);
+  border-radius: 2px;
+  transition: all 0.25s;
+  transform-origin: center;
+}
+/* animates into an × when open */
+.burger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.burger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* dim overlay behind sidebar */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 99;
+}
+.sidebar-overlay.open { display: block; }
+
+/* mobile breakpoint */
+@media (max-width: 640px) {
+  .burger-btn { display: flex; }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .sidebar.open { transform: translateX(0); }
+
+  .sidebar-top {
+    margin-top: 50px;
+  }
+
+  .main-content {
+    padding-top: 4.5rem; /* room for the burger button */
+  }
+}
+
 /* side bar end */
 
 /* admin side bar */
