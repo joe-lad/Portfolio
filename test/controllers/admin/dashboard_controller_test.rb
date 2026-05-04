@@ -1,8 +1,26 @@
 require "test_helper"
 
 class Admin::DashboardControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get admin_dashboard_index_url
+  def valid_credentials
+    ActionController::HttpAuthentication::Basic.encode_credentials(
+      ENV["ADMIN_USERNAME"], ENV["ADMIN_PASSWORD"]
+    )
+  end
+
+  test "blocks unauthenticated access" do
+    get admin_root_url
+    assert_response :unauthorized
+  end
+
+  test "allows access with valid credentials" do
+    get admin_root_url, headers: { "HTTP_AUTHORIZATION" => valid_credentials }
     assert_response :success
+  end
+
+  test "blocks access with wrong password" do
+    get admin_root_url, headers: {
+      "HTTP_AUTHORIZATION" => ActionController::HttpAuthentication::Basic.encode_credentials("admin", "wrong")
+    }
+    assert_response :unauthorized
   end
 end

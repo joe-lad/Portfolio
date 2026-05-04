@@ -377,12 +377,34 @@ echo "✅ Done! Visit https://jknight.uk"
 
 ---
 
+## Tests
+
+Run the full test suite:
+
+```bash
+rails test
+```
+
+Run a specific folder:
+
+```bash
+rails test test/controllers/admin/
+```
+
+### What's covered
+
+- **Admin auth** — all admin controllers verify that unauthenticated requests return 401, valid credentials return 200, and wrong credentials return 401
+- **Admin projects** — full CRUD coverage including create with invalid params, update, and destroy
+- **Comment validations** — presence and email format
+
+---
+
 ## TODO
 
 - [x] Comment form refactor into `comments/_form.html.erb` partial with `comments/new` route
 - [x] Website responsiveness — mobile sidebar with hamburger menu, scroll spy, hover state fixes
 - [x] Comment validations (no empty fields)
-- [ ] Admin authentication (replace `require_admin!` placeholder — consider Devise or HTTP basic auth)
+- [x] Admin authentication (replace `require_admin!` placeholder — consider Devise or HTTP basic auth)
 - [ ] Project show page
 - [ ] Animations
 - [ ] Uptime comparison widget — Synology vs GitHub using [GitHub Status API](https://www.githubstatus.com/api/v2/status.json)
@@ -401,3 +423,4 @@ echo "✅ Done! Visit https://jknight.uk"
 - **Turbo** intercepts link clicks and does not re-fire `DOMContentLoaded` — use `turbo:load` for all JS initialisation instead
 - **Mobile hover states** — wrap `:hover` styles in `@media (hover: hover)` to prevent sticky tap highlights on touch devices
 - **Comment form** uses `data: { turbo: false }` to bypass Turbo — required for anchor redirects to work on validation failure
+- **dotenv-rails** is required to load `.env` variables — without it `ENV["ADMIN_USERNAME"]` returns nil and basic auth crashes on boot
