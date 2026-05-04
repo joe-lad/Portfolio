@@ -4,3 +4,6 @@ import "controllers"
 import * as bootstrap from "bootstrap"
 import "jquery"
 import "jquery_ujs"
+import jquery from "jquery"
+window.$ = jquery
+window.jQuery = jquery
