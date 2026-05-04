@@ -1,7 +1,9 @@
 <div class="card mb-3 text-decoration-none">
   <div class="card-body">
       <h5 class="card-title fw-bold"><%= comment.name %></h5>
-      <h6 class="card-subtitle mb-2"><%= comment.email %></h6>
+      <% if request.path.start_with?("/admin") %>
+        <p class="text-muted small"><%= comment.email %></p>
+      <% end %>
       <p class="card-text"><%= comment.body %></p>
   </div>
 </div>
