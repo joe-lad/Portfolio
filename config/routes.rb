@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get "projects/index"
+    get "projects/new"
+    get "projects/create"
+    get "projects/edit"
+    get "projects/update"
+    get "projects/destroy"
+    get "comments/index"
+    get "dashboard/index"
+  end
+  get "projects/index"
+  get "projects/show"
   get "comments/create"
   get "pages/home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -14,5 +26,12 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "pages#home"
 
-  resources :comments, only: [:create, :index, :show]
+  resources :comments, only: [ :create, :show, :new ]
+  resources :projects, only: [ :show ]
+
+  namespace :admin do
+    root "dashboard#index"
+    resources :comments, only: [ :index, :update, :destroy ]
+    resources :projects
+  end
 end

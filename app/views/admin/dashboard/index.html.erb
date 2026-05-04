@@ -1,0 +1,24 @@
+<h1 class="mb-4">Dashboard</h1>
+
+<div class="row g-4">
+  <div class="col-md-4">
+    <div class="card text-center p-3">
+      <h2 class="text-accent mb-0"><%= @pending_comments %></h2>
+      <p class="card-text mt-1">Pending Comments</p>
+      <%= link_to "Review", admin_comments_path, class: "btn btn-primary btn-sm mt-2" %>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center p-3">
+      <h2 class="text-accent mb-0"><%= @total_comments %></h2>
+      <p class="card-text mt-1">Total Comments</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center p-3">
+      <h2 class="text-accent mb-0"><%= @total_projects %></h2>
+      <p class="card-text mt-1">Projects</p>
+      <%= link_to "Manage", admin_projects_path, class: "btn btn-primary btn-sm mt-2" %>
+    </div>
+  </div>
+</div>

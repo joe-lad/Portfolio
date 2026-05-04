@@ -1,10 +1,6 @@
 class CommentsController < ApplicationController
-  def index
-    @comments = Comment.where(approved: false).order(created_at: :desc)
-  end
-
-  def show
-    @comment = Comment.find(params[:id])
+  def new
+    @comment = Comment.new()
   end
 
   def create

@@ -5,5 +5,9 @@ import * as bootstrap from "bootstrap"
 import "jquery"
 import "jquery_ujs"
 import jquery from "jquery"
+import "theme"
+import "scrollspy"
 window.$ = jquery
 window.jQuery = jquery
+import "trix"
+import "@rails/actiontext"

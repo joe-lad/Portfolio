@@ -1,0 +1,15 @@
+<%= form_with model: Comment.new, url: comments_path do |f| %>
+  <div class="mb-3">
+    <%= f.label :name, class: "form-label" %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :email, class: "form-label" %>
+    <%= f.email_field :email, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :body, "Comment", class: "form-label" %>
+    <%= f.text_area :body, class: "form-control", rows: 4 %>
+  </div>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>

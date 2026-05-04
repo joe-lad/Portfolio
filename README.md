@@ -14,6 +14,8 @@ Live at: **https://jknight.uk**
 - **Propshaft** (asset pipeline)
 - **Bootstrap** (CSS)
 - **jQuery** (via importmap)
+- **Action Text** (rich text for project descriptions)
+- **Active Storage** (project cover photos)
 - **Puma** (web server)
 - **Docker** (containerised deployment)
 - **Cloudflare Tunnel** (HTTPS, no open router ports)
@@ -52,31 +54,13 @@ sudo npm install -g yarn
 sudo apt install -y libpq-dev postgresql-client
 ```
 
-### Create the app
+### Dark mode toggle
 
-```bash
-rails new Portfolio \
-  --database=postgresql \
-  --asset-pipeline=propshaft \
-  --javascript=importmap \
-  --css=bootstrap
-```
+`app/javascript/theme.js` — reads/writes `localStorage` and sets `data-theme` on the `<html>` element. Respects `prefers-color-scheme` by default, overridden by manual toggle.
 
-### jQuery setup
+### Scroll spy
 
-In `config/importmap.rb`:
-
-```ruby
-pin "jquery", to: "https://ga.jspm.io/npm:jquery@3.7.1/dist/jquery.js"
-pin "jquery_ujs", to: "https://ga.jspm.io/npm:jquery-ujs@1.2.3/src/rails.js"
-```
-
-In `app/javascript/application.js`:
-
-```js
-import "jquery"
-import "jquery_ujs"
-```
+`app/javascript/scrollspy.js` — uses `IntersectionObserver` to add `.active` class to sidebar nav links as sections scroll into view.
 
 ### VS Code Extensions
 
@@ -88,20 +72,105 @@ import "jquery_ujs"
 
 ---
 
+## Theming
+
+CSS custom properties are defined in `application.bootstrap.scss` before the Bootstrap import so Bootstrap picks them up at compile time. Component-level styles and dark mode overrides live in `app/assets/stylesheets/Theme.css`.
+
+### Colour palette
+
+| Variable | Light | Dark | Usage |
+|----------|-------|------|-------|
+| `--color-brand` | `#1e3a5f` | `#1e3a5f` | Navbar, primary buttons |
+| `--color-brand-hover` | `#2d5a8e` | `#2d5a8e` | Hover states |
+| `--color-accent` | `#4a9eff` | `#4a9eff` | Links, active states, section titles |
+| `--color-bg` | `#f8f9fb` | `#111213` | Page background |
+| `--color-bg-surface` | `#ffffff` | `#0f1923` | Cards, sidebar |
+| `--color-fg` | `#1e293b` | `#e2e8f0` | Body text |
+| `--color-fg-muted` | `#64748b` | `#94a3b8` | Secondary text |
+| `--color-border` | `#e2e8f0` | `#2d3748` | Borders, dividers |
+
+### Dark mode
+
+Dark mode follows system preference by default (`prefers-color-scheme`). Users can override with the toggle button in the sidebar, which saves their preference to `localStorage`. Priority order:
+
+**localStorage → system preference → light mode default**
+
+---
+
+## Layout
+
+The app uses a two-column sticky sidebar layout:
+
+- `app/views/shared/_sidebar.html.erb` — sidebar partial with nav links, social links, and theme toggle
+- `app/views/layouts/application.html.erb` — renders the sidebar alongside `<main>`
+- `app/views/layouts/admin.html.erb` — separate admin layout with its own sidebar
+
+---
+
+## Models
+
+### Comment
+
+| Column | Type | Notes |
+|--------|------|-------|
+| name | string | |
+| email | string | |
+| body | text | |
+| approved | boolean | defaults to false |
+| timestamps | datetime | |
+
+### Project
+
+| Column | Type | Notes |
+|--------|------|-------|
+| title | string | |
+| featured | boolean | |
+| description | Action Text | rich text |
+| cover_photo | Active Storage | image attachment |
+| timestamps | datetime | |
+
+---
+
+## Routes
+
+```ruby
+root "pages#home"
+resources :comments, only: [:create, :index, :show, :new]
+
+namespace :admin do
+  root "dashboard#index"
+  resources :comments, only: [:index, :update, :destroy]
+  resources :projects
+end
+```
+
+---
+
+## Admin
+
+The admin section lives at `/admin` and uses a separate layout and base controller (`Admin::BaseController`). All admin controllers inherit from it, making it easy to add authentication later.
+
+- **Dashboard** — stats for pending comments, total comments, total projects
+- **Comments** — list all comments, approve or delete
+- **Projects** — full CRUD with rich text description and cover photo upload
+
+> **Note:** Authentication is not yet implemented. The `require_admin!` method in `Admin::BaseController` is a placeholder — see TODO.
+
+---
+
 ## Synology NAS Setup
 
 ### Requirements
 
 - Synology DSM with **Container Manager** installed
+- **Web Station** installed
 - SSH enabled: Control Panel → Terminal & SNMP → Terminal
 
 ### Docker containers on the NAS
 
-Three containers run on the Synology:
-
 | Container | Image | Port |
 |-----------|-------|------|
-| postgres | postgres:16 | 5433 (5432 was taken by native Postgres) |
+| postgres | postgres:16 | 5433 (5432 taken by native Postgres) |
 | registry | registry | 5050 |
 | cloudflared | cloudflare/cloudflared | — |
 | portfolio | (synology.ip):5050/portfolio | 3000 |
@@ -219,8 +288,10 @@ sudo docker run -d \
 
 | Record | Type | Target |
 |--------|------|--------|
-| jknight.uk | CNAME | (Cloudflare tunnel) |
-| old.jknight.uk | CNAME | (Old server) |
+| jknight.uk | CNAME | Cloudflare tunnel (Synology) |
+| old.jknight.uk | CNAME | Old server tunnel (locally configured cloudflared) |
+
+> **Note:** `old.jknight.uk` is handled by a locally configured cloudflared instance on the old server (`/etc/cloudflared/config.yml`). Requires a `ServerAlias old.jknight.uk` entry in the Apache virtual host config on that server.
 
 ---
 
@@ -229,7 +300,6 @@ sudo docker run -d \
 Rails 8.1 generates a Dockerfile automatically. One tweak required — bypass Thruster (which tries to bind to port 80 as a non-root user) and run Puma directly:
 
 ```dockerfile
-# Replace the default CMD with:
 CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
 ```
 
@@ -297,17 +367,18 @@ ssh $SYNOLOGY_USER@$SYNOLOGY_IP -p $SYNOLOGY_SSH_PORT "
 echo "✅ Done! Visit https://jknight.uk"
 ```
 
+> **Note:** DSM will send an email alert when the portfolio container stops during deploy. This is a false alarm — the container is intentionally stopped and immediately restarted. Safe to ignore.
+
 ---
 
 ## TODO
 
-- [ ] Refactor comment form into `comments/_form.html.erb` partial with `comments/new` route
-- [ ] Remove `comments/index` — move to `admin/comments/index`
-- [ ] Build `admin/` namespace with dashboard
-- [ ] Comment approval in admin
+- [x] Comment form refactor into `comments/_form.html.erb` partial with `comments/new` route
+- [ ] Admin authentication (replace `require_admin!` placeholder — consider Devise or HTTP basic auth)
+- [ ] Website responsiveness (mobile sidebar, responsive cards and layout)
+- [ ] Project show page
 - [ ] Comment validations (no empty fields)
-- [ ] Finish basic portfolio site
-- [ ] Add animations
+- [ ] Animations
 - [ ] Uptime comparison widget — Synology vs GitHub using [GitHub Status API](https://www.githubstatus.com/api/v2/status.json)
 
 ---
@@ -316,5 +387,8 @@ echo "✅ Done! Visit https://jknight.uk"
 
 - **Port 5000** is used by DSM — use 5050 for the registry
 - **Port 5432** was taken by native Synology Postgres — use 5433 for the Docker one
-- **Synology Docker config** lives at `/var/packages/ContainerManager/etc/dockerd.json`
+- **Synology Docker config** lives at `/var/packages/ContainerManager/etc/dockerd.json` not `/etc/docker/daemon.json`
 - **Thruster** (Rails 8 default server) tries to bind to port 80 and fails as non-root — bypass with direct Puma CMD
+- **DSM updates** can reset `/etc/ssh/sshd_config` — re-verify SSH PATH after major updates
+- **Bootstrap SCSS variables** must be set before `@import 'bootstrap/scss/bootstrap'` to take effect
+- **Propshaft** does not serve from `app/assets/files` — put static downloads like CVs in `public/`

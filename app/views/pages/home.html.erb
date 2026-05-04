@@ -1,28 +1,233 @@
 <div class="container mt-5">
-  <h1>Hello World</h1>
-  <p>My portfolio is coming soon.</p>
+  <div class="intro-card mb-5">
+    <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+      <div>
+        <span class="availability-badge mb-2 d-inline-block">
+          <span class="availability-dot"></span> Open to work
+        </span>
+        <h1 class="intro-tagline">Full stack developer specialising in Ruby on Rails</h1>
+        <p class="intro-bio">
+          Based in Northampton, I build robust web applications across the full stack — 
+          from database design and API integration to responsive front-end interfaces. 
+          Currently open to junior and mid-level opportunities.
+        </p>
+      </div>
+      <div class="d-flex flex-column justify-content-between" style="min-height: 130px;">
+        <a href="/joe-knight-cv.pdf" download="Joe-Knight-CV.pdf" class="btn btn-primary d-flex align-items-center gap-2">
+          <i class="bi bi-file-earmark-arrow-down"></i> Download CV
+        </a>
+        <div class="contact-details">
+          <a href="tel:+447928342810" class="contact-item">
+            <i class="bi bi-telephone"></i> +44 7928 342810
+          </a>
+          <a href="mailto:joeknight2004@protonmail.com" class="contact-item">
+            <i class="bi bi-envelope"></i> joeknight2004@protonmail.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <section id="about" class="mb-5">
+    <h2 class="section-title">About</h2>
 
+    <p>
+      I'm Joe Knight, a junior developer based in Northampton with commercial experience building 
+      Ruby on Rails applications across carbon reporting, e-commerce, and internal tooling. 
+      I enjoy working across the full stack from database design and API integration through 
+      to responsive front-end interfaces.
+    </p>
+
+    <p>
+      Outside of professional work I enjoy taking on personal infrastructure challenges. 
+      This site runs on a self-hosted <span class="fw-bold">Synology NAS</span> using 
+      <span class="fw-bold">Rails 8</span>, <span class="fw-bold">Docker</span>, 
+      <span class="fw-bold">PostgreSQL</span>, and a <span class="fw-bold">Cloudflare Tunnel</span> 
+      for secure public access built from scratch as a learning exercise in self-hosting and DevOps. 
+      The source code is available on <%= link_to "GitHub", "https://github.com/joe-lad/Portfolio", target: "_blank" %>.
+    </p>
+
+    <p>
+      You can also view my <%= link_to "legacy portfolio", "https://old.jknight.uk", target: "_blank" %>, 
+      an earlier project that demonstrates my progression as a developer.
+    </p>
+  </section>
+  
   <hr>
 
-  <h3>Leave a comment</h3>
-  <%= form_with model: Comment.new, url: comments_path do |f| %>
-    <div class="mb-3">
-      <%= f.label :name, class: "form-label" %>
-      <%= f.text_field :name, class: "form-control" %>
+  <section id="skills" class="mb-5">
+    <h2 class="section-title">Skills</h2>
+
+    <div class="skills-group mb-4">
+      <h6 class="skills-group-label">Languages & Frameworks</h6>
+      <div class="skills-list">
+        <span class="skill-badge"><i class="bi bi-gem"></i> Ruby on Rails</span>
+        <span class="skill-badge"><i class="bi bi-filetype-js"></i> JavaScript</span>
+        <span class="skill-badge"><i class="bi bi-filetype-php"></i> PHP</span>
+        <span class="skill-badge"><i class="bi bi-css"></i> CSS</span>
+        <span class="skill-badge"><i class="bi bi-filetype-sql"></i> SQL</span>
+        <span class="skill-badge"><i class="bi bi-filetype-jsx"></i> React</span>
+      </div>
     </div>
-    <div class="mb-3">
-      <%= f.label :email, class: "form-label" %>
-      <%= f.email_field :email, class: "form-control" %>
+
+    <div class="skills-group mb-4">
+      <h6 class="skills-group-label">Tools & Platforms</h6>
+      <div class="skills-list">
+        <span class="skill-badge"><i class="bi bi-bag"></i> Shopify</span>
+        <span class="skill-badge"><i class="bi bi-server"></i> Heroku</span>
+        <span class="skill-badge"><i class="bi bi-terminal"></i> Linux</span>
+        <span class="skill-badge"><i class="bi bi-database"></i> PostgreSQL</span>
+        <span class="skill-badge"><i class="bi bi-git"></i> Git</span>
+        <span class="skill-badge"><i class="bi bi-figma"></i> Figma</span>
+        <span class="skill-badge"><i class="bi bi-docker"></i> Docker</span>
+      </div>
     </div>
-    <div class="mb-3">
-      <%= f.label :body, "Comment", class: "form-label" %>
-      <%= f.text_area :body, class: "form-control", rows: 4 %>
+
+    <div class="skills-group mb-4">
+      <h6 class="skills-group-label">Specialisms</h6>
+      <div class="skills-list">
+        <span class="skill-badge"><i class="bi bi-phone"></i> Responsive Web Development</span>
+        <span class="skill-badge"><i class="bi bi-arrow-left-right"></i> API & Data Handling</span>
+        <span class="skill-badge"><i class="bi bi-envelope-at"></i> Mail Automation</span>
+        <span class="skill-badge"><i class="bi bi-bar-chart"></i> Data Visualisation</span>
+        <span class="skill-badge"><i class="bi bi-shield-lock"></i> User Access Control</span>
+        <span class="skill-badge"><i class="bi bi-bug"></i> Debugging & Support</span>
+        <span class="skill-badge"><i class="bi bi-recycle"></i> ISO 14064</span>
+      </div>
     </div>
-    <%= f.submit "Submit", class: "btn btn-primary" %>
-  <% end %>
+
+    <div class="skills-group">
+      <h6 class="skills-group-label">Engineering</h6>
+      <div class="skills-list">
+        <span class="skill-badge"><i class="bi bi-tools"></i> Manual Machining</span>
+        <span class="skill-badge"><i class="bi bi-fire"></i> MIG Welding</span>
+        <span class="skill-badge"><i class="bi bi-heart-pulse"></i> First Aid</span>
+      </div>
+    </div>
+  </section>
+  
+  <hr>
+
+  <section id="projects" class="mb-5">
+    <h2 class="section-title">Projects</h2>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      <%= render @projects %>
+    </div>
+  </section>
 
   <hr>
   
-  <h3>Comments</h3>
-  <%= render @comments %> 
+  <section id="experience" class="mb-5">
+    <h2 class="section-title">Experience</h2>
+
+    <div class="exp-item mb-4">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <h5 class="mb-0 fw-bold">Software Developer</h5>
+          <p class="text-accented mb-1">KP Studios, Brixworth</p>
+        </div>
+        <span class="exp-date">June 2024 – Sept 2025</span>
+      </div>
+      <ul class="mt-2">
+        <li>Developed Ruby on Rails web applications aligned with the Greenhouse Gas Protocol to track carbon emissions across construction projects</li>
+        <li>Built a Rails API integrated with Shopify webhooks to collect and process real-time order data</li>
+        <li>Designed and managed PostgreSQL databases for efficient storage and querying</li>
+        <li>Implemented interactive dashboards with JavaScript, jQuery, and Chart.js to visualise KPIs</li>
+      </ul>
+    </div>
+
+    <div class="exp-item mb-4">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <h5 class="mb-0 fw-bold">Development Engineer</h5>
+          <p class="text-accented mb-1">Fablink Cab Systems, Brixworth</p>
+        </div>
+        <span class="exp-date">Aug 2021 – May 2024</span>
+      </div>
+      <ul class="mt-2">
+        <li>Supporting customer requirements for complex production line welding assemblies</li>
+        <li>Producing components via manual machining to customer stated tolerances</li>
+        <li>Maintaining functionality of production line welding assemblies</li>
+      </ul>
+    </div>
+
+    <div class="exp-item mb-4">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <h5 class="mb-0 fw-bold">Lifeguard</h5>
+          <p class="text-accented mb-1">Trilogy Active, Northampton</p>
+        </div>
+        <span class="exp-date">Oct 2023 – Present</span>
+      </div>
+      <ul class="mt-2">
+        <li>Upholding the standards and safety of Trilogy Active</li>
+        <li>Liaising with customers and ensuring their well-being</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <h5 class="mb-0 fw-bold">Software Engineer</h5>
+          <p class="text-accented mb-1">Web Alliance LTD, Northampton</p>
+        </div>
+        <span class="exp-date">June 2021</span>
+      </div>
+      <ul class="mt-2">
+        <li>Developed tools using Python's requests library to gather and parse public company data</li>
+      </ul>
+    </div>
+  </section>
+  
+  <hr>
+
+  <section id="education" class="mb-5">
+    <h2 class="section-title">Education</h2>
+
+    <div class="exp-item mb-4">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <h5 class="mb-0 fw-bold">Level 3 – IT Solutions Technician</h5>
+          <p class="exp-company text-accented mb-1">JBC Skills Training, Online</p>
+        </div>
+        <span class="exp-date">Aug 2024 – Nov 2025</span>
+      </div>
+      <ul class="mt-2">
+        <li>Achieved Merit grade</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <h5 class="mb-0 fw-bold">GCSEs</h5>
+          <p class="exp-company text-accented mb-1">Abbeyfield School, Mereway</p>
+        </div>
+        <span class="exp-date">Sept 2019 – Aug 2021</span>
+      </div>
+      <ul class="mt-2">
+        <li>Computer Science (7)</li>
+        <li>Mathematics (6)</li>
+        <li>Biology (6), Chemistry (6), Physics (6)</li>
+        <li>English Literature (5), English Language (5)</li>
+        <li>Art & Design (5)</li>
+      </ul>
+    </div>
+  </section>
+  
+  <hr>
+
+  <section id="comments">
+    <h2>Comments</h2>
+    <%= render @comments %> 
+  </section>
+  
+
+  <hr>
+    
+  <section id="leave-a-comment">
+    <h2>Leave a comment</h2>
+    <%= render "comments/form" %>
+  </section>
+
 </div>
