@@ -405,6 +405,7 @@ rails test test/controllers/admin/
 - [x] Website responsiveness — mobile sidebar with hamburger menu, scroll spy, hover state fixes
 - [x] Comment validations (no empty fields)
 - [x] Admin authentication (replace `require_admin!` placeholder — consider Devise or HTTP basic auth)
+- [x] Approve comments before display
 - [ ] Project show page
 - [ ] Animations
 - [ ] Uptime comparison widget — Synology vs GitHub using [GitHub Status API](https://www.githubstatus.com/api/v2/status.json)

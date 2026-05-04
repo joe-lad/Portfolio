@@ -1,2 +1,20 @@
-<h1>Projects#show</h1>
-<p>Find me in app/views/projects/show.html.erb</p>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <% if @project.cover_photo.attached? %>
+        <%= image_tag @project.cover_photo, class: "img-fluid rounded mb-4", style: "width: 100%; max-height: 360px; object-fit: cover;" %>
+      <% end %>
+
+      <h1 class="fw-bold mb-1"><%= @project.title %></h1>
+      <h5 class="text-muted mb-4"><%= @project.subtitle %></h5>
+
+      <div class="project-description">
+        <%= @project.description %>
+      </div>
+
+      <%= link_to "← Back", root_path(anchor: "projects"), class: "btn btn-outline-secondary mt-4" %>
+
+    </div>
+  </div>
+</div>
