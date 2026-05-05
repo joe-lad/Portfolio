@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script>
+      const saved = localStorage.getItem("theme")
+      if (saved) document.documentElement.setAttribute("data-theme", saved)
+    </script>
     <title>Admin – Portfolio</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>

@@ -2,11 +2,8 @@ document.addEventListener('turbo:load', () => {
   const toggle = document.getElementById("theme-toggle")
   const html = document.documentElement
 
-  const saved = localStorage.getItem("theme")
-  if (saved) {
-    html.setAttribute("data-theme", saved)
-    toggle.textContent = saved === "dark" ? "☀️" : "🌙"
-  }
+  // Sync button icon with current theme (already set by head script)
+  toggle.textContent = html.getAttribute("data-theme") === "dark" ? "☀️" : "🌙"
 
   toggle.addEventListener("click", () => {
     const current = html.getAttribute("data-theme")
@@ -15,4 +12,4 @@ document.addEventListener('turbo:load', () => {
     localStorage.setItem("theme", next)
     toggle.textContent = next === "dark" ? "☀️" : "🌙"
   })
-});
+})
