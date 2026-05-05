@@ -15,18 +15,19 @@ ssh $SYNOLOGY_USER@$SYNOLOGY_IP -p $SYNOLOGY_SSH_PORT "
   sudo /usr/local/bin/docker stop portfolio &&
   sudo /usr/local/bin/docker rm portfolio &&
   sudo /usr/local/bin/docker run -d \
-    --name portfolio \
-    --restart unless-stopped \
-    -p 3000:3000 \
-    -e RAILS_ENV=production \
-    -e RAILS_MASTER_KEY='$RAILS_MASTER_KEY' \
-    -e DB_HOST='$DB_HOST' \
-    -e DB_PORT='$DB_PORT' \
-    -e PORTFOLIO_DATABASE_PASSWORD='$PORTFOLIO_DATABASE_PASSWORD' \
-    -e ADMIN_USERNAME='$ADMIN_USERNAME' \
-    -e ADMIN_PASSWORD='$ADMIN_PASSWORD' \
-    -e UPTIMEROBOT_API_KEY='$UPTIMEROBOT_API_KEY' \
-    $REGISTRY/portfolio:latest
+  --name portfolio \
+  --restart unless-stopped \
+  -p 3000:3000 \
+  -v /volume1/docker/portfolio/storage:/rails/storage \
+  -e RAILS_ENV=production \
+  -e RAILS_MASTER_KEY='$RAILS_MASTER_KEY' \
+  -e DB_HOST='$DB_HOST' \
+  -e DB_PORT='$DB_PORT' \
+  -e PORTFOLIO_DATABASE_PASSWORD='$PORTFOLIO_DATABASE_PASSWORD' \
+  -e ADMIN_USERNAME='$ADMIN_USERNAME' \
+  -e ADMIN_PASSWORD='$ADMIN_PASSWORD' \
+  -e UPTIMEROBOT_API_KEY='$UPTIMEROBOT_API_KEY' \
+  $REGISTRY/portfolio:latest
 "
 
 echo "✅ Done! Visit https://jknight.uk"
