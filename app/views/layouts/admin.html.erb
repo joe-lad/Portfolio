@@ -10,6 +10,14 @@
   </head>
   <body>
     <div class="admin-layout">
+      <button class="burger-btn" id="burger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="sidebar-overlay" id="overlay"></div>
+
       <aside class="admin-sidebar">
         <div class="admin-sidebar-top">
           <h2 class="admin-brand">Admin</h2>
@@ -24,13 +32,7 @@
           <button id="theme-toggle" class="theme-toggle mt-2">🌙</button>
         </div>
       </aside>
-      <main class="main-content">
-        <% if notice %>
-          <div class="alert alert-success mb-4"><%= notice %></div>
-        <% end %>
-        <% if alert %>
-          <div class="alert alert-danger mb-4"><%= alert %></div>
-        <% end %>
+      <main class="admin-main-content">
         <%= yield %>
       </main>
     </div>
