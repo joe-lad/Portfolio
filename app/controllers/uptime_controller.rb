@@ -11,7 +11,7 @@ class UptimeController < ApplicationController
     })
 
     data = JSON.parse(result.body)
-    monitor = data["monitors"].first
+    monitor = data["monitors"]&.first
 
     render json: {
       uptime_90d: monitor["custom_uptime_ratio"].to_f,

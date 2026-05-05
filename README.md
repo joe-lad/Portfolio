@@ -313,6 +313,9 @@ CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
 
 ## Environment Variables
 
+> [!IMPORTANT]
+> DEPLOY SCRIPT MUST BE UPDATED WITH ENV VARS!!!
+
 Stored in `.env` (never committed to git):
 
 ```env
