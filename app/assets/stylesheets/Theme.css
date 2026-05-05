@@ -589,3 +589,7 @@ a:hover {
 .uptime-pill--bad     { background: #fee2e2; color: #991b1b; }
 
 /* uptime widget end */
+
+.intro-tagline {
+  min-height: 4rem; /* enough for 1-2 lines of your heading */
+}

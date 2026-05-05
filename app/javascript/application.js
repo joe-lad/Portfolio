@@ -13,3 +13,11 @@ window.$ = jquery
 window.jQuery = jquery
 import "trix"
 import "@rails/actiontext"
+import gsap from "gsap"
+import ScrollTrigger from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
+
+// Attach to window so other modules can reuse
+window.gsap = gsap
+window.ScrollTrigger = ScrollTrigger
