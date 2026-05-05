@@ -141,11 +141,15 @@ The app uses a two-column sticky sidebar layout:
 
 ```ruby
 root "pages#home"
-resources :comments, only: [:create, :index, :show, :new]
+
+resources :comments, only: [ :create, :show ]
+resources :projects, only: [ :show ]
+
+get "/uptime_stats", to: "uptime#stats"
 
 namespace :admin do
   root "dashboard#index"
-  resources :comments, only: [:index, :update, :destroy]
+  resources :comments, only: [ :index, :update, :destroy ]
   resources :projects
 end
 ```
@@ -155,6 +159,7 @@ end
 ## Admin
 
 The admin section lives at `/admin` and uses a separate layout and base controller (`Admin::BaseController`)
+Authenticated with basic HTTP authentication
 
 - **Dashboard** — stats for pending comments, total comments, total projects
 - **Comments** — list all comments, approve or delete
@@ -172,32 +177,14 @@ The admin section lives at `/admin` and uses a separate layout and base controll
 
 ### Docker containers on the NAS
 
-| Container | Image | Port |
-|-----------|-------|------|
-| postgres | postgres:16 | 5433 (5432 taken by native Postgres) |
-| registry | registry | 5050 |
-| cloudflared | cloudflare/cloudflared | — |
-| portfolio | (synology.ip):5050/portfolio | 3000 |
+| Container | Image |
+|-----------|-------|
+| postgres | postgres:16 |
+| registry | registry |
+| cloudflared | cloudflare/cloudflared |
+| portfolio | (synology.ip)/portfolio |
 
 ### PostgreSQL container
-
-`/volume1/docker/postgres/docker-compose.yml`:
-
-```yaml
-services:
-  postgres:
-    image: postgres:16
-    container_name: postgres
-    environment:
-      POSTGRES_USER: portfolio
-      POSTGRES_PASSWORD: <your_password>
-      POSTGRES_DB: portfolio_production
-    volumes:
-      - /volume1/docker/postgres/data:/var/lib/postgresql/data
-    ports:
-      - 5433:5432
-    restart: unless-stopped
-```
 
 ```bash
 cd /volume1/docker/postgres
@@ -215,20 +202,6 @@ sudo docker exec -it postgres psql -U portfolio -d postgres -c "CREATE DATABASE 
 
 ### Local Docker registry
 
-`/volume1/docker/registry/docker-compose.yml`:
-
-```yaml
-services:
-  registry:
-    image: registry
-    container_name: registry
-    volumes:
-      - /volume1/docker/registry/data:/var/lib/registry
-    ports:
-      - 5050:5000
-    restart: unless-stopped
-```
-
 ```bash
 sudo mkdir -p /volume1/docker/registry/data
 cd /volume1/docker/registry
@@ -243,13 +216,12 @@ Synology uses its own Docker config file (not `/etc/docker/daemon.json`):
 
 ```json
 {
-  "bip": "172.17.0.1/16",
   "data-root": "/var/packages/ContainerManager/var/docker",
   "log-driver": "db",
   "registry-mirrors": [],
   "seccomp-profile": "unconfined",
   "storage-driver": "btrfs",
-  "insecure-registries": ["(synology.ip):5050"]
+  "insecure-registries": ["(synology.ip)"]
 }
 ```
 
@@ -324,14 +296,14 @@ PORTFOLIO_DATABASE_PASSWORD=
 SYNOLOGY_SSH_PORT=2222
 SYNOLOGY_USER=Joe
 SYNOLOGY_IP=(synology.ip)
-REGISTRY=(synology.ip):5050
+REGISTRY=(synology.ip)
 ```
 
 In `config/database.yml` production section:
 
 ```yaml
 host: <%= ENV["DB_HOST"] %>
-port: <%= ENV["DB_PORT"] || 5433 %>
+port: <%= ENV["DB_PORT"] %>
 ```
 
 ---
@@ -410,14 +382,13 @@ rails test test/controllers/admin/
 - [x] Project show page
 - [x] Uptime comparison widget — Synology vs GitHub using [GitHub Status Page](https://mrshu.github.io/github-statuses/)
 - [x] Mailer system when a user comments
+- [ ] First click sometimes doesn't register the theme toggele
 - [ ] Animations
 
 ---
 
 ## Gotchas & Notes
 
-- **Port 5000** is used by DSM — use 5050 for the registry
-- **Port 5432** was taken by native Synology Postgres — use 5433 for the Docker one
 - **Synology Docker config** lives at `/var/packages/ContainerManager/etc/dockerd.json` not `/etc/docker/daemon.json`
 - **Thruster** (Rails 8 default server) tries to bind to port 80 and fails as non-root — bypass with direct Puma CMD
 - **DSM updates** can reset `/etc/ssh/sshd_config` — re-verify SSH PATH after major updates
