@@ -14,9 +14,10 @@ document.addEventListener('turbo:load', () => {
     const active = visible.reduce((a, b) =>
       a.getBoundingClientRect().top < b.getBoundingClientRect().top ? a : b
     );
+    // console.log(active);
 
     links.forEach(link => link.classList.remove("active"));
-    const activeLink = document.querySelector(`.sidebar-link[href="#${active.id}"]`);
+    const activeLink = document.querySelector(`.sidebar-link[href="/#${active.id}"]`);
     if (activeLink) activeLink.classList.add("active");
 
   }, {
