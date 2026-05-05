@@ -411,7 +411,7 @@ rails test test/controllers/admin/
 - [x] Approve comments before display
 - [x] Project show page
 - [x] Uptime comparison widget — Synology vs GitHub using [GitHub Status Page](https://mrshu.github.io/github-statuses/)
-- [ ] Mailer system when a user comments
+- [x] Mailer system when a user comments
 - [ ] Animations
 
 ---

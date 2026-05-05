@@ -171,6 +171,8 @@ GEM
       net-imap
       net-pop
       net-smtp
+    mailtrap (2.10.0)
+      base64
     marcel (1.1.0)
     matrix (0.4.3)
     mini_magick (5.3.1)
@@ -398,6 +400,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  mailtrap
   pg (~> 1.1)
   propshaft
   puma (>= 5.0)
