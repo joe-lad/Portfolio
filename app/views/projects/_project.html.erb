@@ -1,12 +1,14 @@
-<div class="col">
+<div class="col-md-6">
   <%= link_to project_path(project), class: "card h-100 text-decoration-none text-dark" do %>
-    <% if project.cover_photo.attached? %>
-      <%= image_tag project.cover_photo, class: "card-img-top", style: "height: 180px; object-fit: cover;" %>
-    <% end %>
-    <div class="card-body">
-      <h5 class="card-title fw-bold"><%= project.title %></h5>
-      <h6 class="card-subtitle mb-2"><%= project.subtitle %></h6>
-      <div class="card-text"><%= project.description %></div>
+    <div class="card h-100 text-decoration-none text-dark">
+      <% if project.cover_photo.attached? %>
+        <%= image_tag project.cover_photo, class: "card-img-top", style: "height: 180px; object-fit: cover;" %>
+      <% end %>
+      <div class="card-body">
+        <h5 class="card-title fw-bold"><%= project.title %></h5>
+        <h6 class="card-subtitle mb-2"><%= project.subtitle %></h6>
+        <div class="card-text"><%= truncate(strip_tags(project.description.to_s), length: 200) %></div>
+      </div>
     </div>
   <% end %>
 </div>

@@ -154,13 +154,11 @@ end
 
 ## Admin
 
-The admin section lives at `/admin` and uses a separate layout and base controller (`Admin::BaseController`). All admin controllers inherit from it, making it easy to add authentication later.
+The admin section lives at `/admin` and uses a separate layout and base controller (`Admin::BaseController`)
 
 - **Dashboard** — stats for pending comments, total comments, total projects
 - **Comments** — list all comments, approve or delete
 - **Projects** — full CRUD with rich text description and cover photo upload
-
-> **Note:** Authentication is not yet implemented. The `require_admin!` method in `Admin::BaseController` is a placeholder — see TODO.
 
 ---
 
@@ -429,3 +427,4 @@ rails test test/controllers/admin/
 - **Mobile hover states** — wrap `:hover` styles in `@media (hover: hover)` to prevent sticky tap highlights on touch devices
 - **Comment form** uses `data: { turbo: false }` to bypass Turbo — required for anchor redirects to work on validation failure
 - **dotenv-rails** is required to load `.env` variables — without it `ENV["ADMIN_USERNAME"]` returns nil and basic auth crashes on boot
+- **Mailtrap** (SMTP email dispatcher) 
