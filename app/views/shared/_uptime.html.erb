@@ -1,0 +1,24 @@
+<%# Uptime comparison widget: jknight.uk vs GitHub
+    Requires:
+      - GET /uptime_stats  → { uptime_90d: Float, status: Integer }
+      - https://mrshu.github.io/github-statuses/parsed/downtime_windows.csv (public, CORS-enabled)
+%>
+
+<div id="uptime-widget" class="py-2">
+  <div class="row g-2">
+    <%= render "shared/uptime_card", type: "jk" %>
+    <%= render "shared/uptime_card", type: "gh" %>
+  </div>
+</div>
+
+<h6 id="uptime-last-run" class="skills-group-label">--</h6>
+
+<button onclick="uptimeWidgetInit()" class="btn btn-primary">
+  Refresh
+</button>
+
+<div class="bottom-padding"></div>
+
+<p class="text-muted small mt-2">
+  * For entertainment purposes only. 
+</p>

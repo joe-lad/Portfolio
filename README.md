@@ -407,9 +407,9 @@ rails test test/controllers/admin/
 - [x] Admin authentication (replace `require_admin!` placeholder — consider Devise or HTTP basic auth)
 - [x] Approve comments before display
 - [x] Project show page
+- [x] Uptime comparison widget — Synology vs GitHub using [GitHub Status Page](https://mrshu.github.io/github-statuses/)
 - [ ] Mailer system when a user comments
 - [ ] Animations
-- [ ] Uptime comparison widget — Synology vs GitHub using [GitHub Status API](https://www.githubstatus.com/api/v2/status.json)
 
 ---
 

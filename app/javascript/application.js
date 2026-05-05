@@ -8,6 +8,7 @@ import jquery from "jquery"
 import "theme"
 import "sidebar"
 import "scrollspy"
+import "uptime"
 window.$ = jquery
 window.jQuery = jquery
 import "trix"

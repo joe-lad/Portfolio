@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   resources :comments, only: [ :create, :show ]
   resources :projects, only: [ :show ]
 
+  get "/uptime_stats", to: "uptime#stats"
+
   namespace :admin do
     root "dashboard#index"
     resources :comments, only: [ :index, :update, :destroy ]
