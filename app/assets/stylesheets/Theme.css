@@ -195,7 +195,7 @@ a:hover {
 }
 
 .sidebar {
-  overflow-y: scroll;
+  overflow-y: auto;
   width: 260px;
   min-width: 260px;
   height: 100vh;
