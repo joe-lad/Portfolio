@@ -38,6 +38,9 @@ export default class extends Controller {
 
   initHero() {
     const title = document.querySelector("[data-hero='title']")
+    
+    if (!title) return;
+    
     const text = "Full stack developer specialising in Ruby on Rails"
 
     const tl = gsap.timeline({
