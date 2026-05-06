@@ -382,8 +382,9 @@ rails test test/controllers/admin/
 - [x] Project show page
 - [x] Uptime comparison widget — Synology vs GitHub using [GitHub Status Page](https://mrshu.github.io/github-statuses/)
 - [x] Mailer system when a user comments
+- [x] Animations
+- [ ] Seo
 - [ ] First click sometimes doesn't register the theme toggele
-- [ ] Animations
 
 ---
 
