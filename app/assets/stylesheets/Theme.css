@@ -681,3 +681,7 @@ textarea, input {
     z-index: 1;
     position: relative;
 }
+
+canvas {
+  z-index: -1 !important;
+}

@@ -39,7 +39,8 @@ export default class extends Controller {
       bvy: (Math.random() - 0.5) * 0.18,
       vr: (Math.random() - 0.5) * 0.003,
       type: i % 3,
-      opacity: 0.04 + Math.random() * 0.05,
+      opacity: 0.04 + Math.random() * 0.2,
+      lw: Math.floor(Math.random() * 2) + 1,
       fx: 0, fy: 0
     }))
   }
@@ -72,7 +73,7 @@ export default class extends Controller {
     })
 
     document.getElementById('bg-speed')?.addEventListener('input', e => {
-      this.speedMult = parseFloat(e.target.value) / 4
+      this.speedMult = parseFloat(e.target.value)
     })
 
     document.getElementById('bg-force')?.addEventListener('input', e => {
@@ -90,7 +91,7 @@ export default class extends Controller {
     ctx.translate(s.x, s.y)
     ctx.rotate(s.rotation)
     ctx.strokeStyle = this.dark ? `rgba(255,255,255,${s.opacity})` : `rgba(0,0,0,${s.opacity})`
-    ctx.lineWidth = 1
+    ctx.lineWidth = s.lw
 
     if(s.type === 0) {
       ctx.beginPath()

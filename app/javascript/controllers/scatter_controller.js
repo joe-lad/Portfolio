@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   connect() {
-    console.log("controller connected")
+    // console.log("controller connected")
     this.wrapWords()
     this.element.addEventListener("mousemove", this.onMouseMove.bind(this))
     this.element.addEventListener("mouseleave", this.onMouseLeave.bind(this))
