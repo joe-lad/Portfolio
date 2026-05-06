@@ -675,3 +675,8 @@ input[type="range"]:active::-webkit-slider-thumb {
 input[type="range"]:active::-moz-range-thumb {
   transform: scale(1.2);
 }
+
+textarea, input {
+    z-index: 1;
+    position: relative;
+}
