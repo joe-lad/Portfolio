@@ -1,15 +1,22 @@
-<div class="col-md-6">
-  <div class="card">
-    <div class="card-body">
+<a href=<%= type == "jk" ? "https://stats.uptimerobot.com/cAc0XNi02Q/802991481" : "https://mrshu.github.io/github-statuses" %> 
+  class="text-decoration-none small col-md-6"
+  target="_blank"
+>
+  <div class="card" style="min-height:250px;" id="hover-card">
+    <div class="card-body d-flex flex-column justify-content-between h-100">
+      <div>
         <h5 class="card-title fw-bold"><%= type == "jk" ? "Portfolio" : "Github" %> uptime</h5>
-        <a href=<%= type == "jk" ? "https://stats.uptimerobot.com/cAc0XNi02Q/802991481" : "https://mrshu.github.io/github-statuses" %> target="_blank" class="card-subtitle text-decoration-none small">
+        <p class="card-subtitle ">
           <%= type == "jk" ? "https://stats.uptimerobot.com/jknight.uk" : "https://mrshu.github.io/github-statuses" %>
-        </a>
-        <h1 id="<%= type %>-pct"></h1>
+        </p>
+      </div>
+      <h1 id="<%= type %>-pct"></h1>
+      <div>
         <div id="<%= type %>-pill" class="uptime-pill uptime-pill--neutral">
           <span class="uptime-dot"></span>Loading…
         </div>
         <p class="card-text small" id="<%= type %>-meta"></p>
+      </div>
     </div>
   </div>
-</div>
+</a>

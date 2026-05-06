@@ -695,3 +695,16 @@ canvas {
   z-index:0;
   pointer-events:none
 }
+
+#hover-card {
+  transition: border-color 0.3s ease, transform 0.3s ease-in-out;
+}
+
+#hover-card:hover {
+  border-color: var(--color-brand-hover) !important;
+  transform: translateY(-10px);
+}
+
+input:hover, textarea:hover {
+  border-color: var(--color-brand-hover) !important;
+}
