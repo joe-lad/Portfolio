@@ -603,10 +603,6 @@ a .scatter-word {
   cursor: default;
 }
 
-.sidebar, .main-content {
-  position: relative;
-  z-index: 1;
-}
 /* Base range reset */
 input[type="range"] {
   -webkit-appearance: none;
