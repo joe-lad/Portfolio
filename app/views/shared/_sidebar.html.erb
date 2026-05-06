@@ -21,21 +21,47 @@
       <a data-turbo="false" href="/#uptime" class="sidebar-link">Uptime</a>
     </nav>
   </div>
-  <div class="sidebar-bottom">
-    <div class="sidebar-socials">
-      <a href="https://github.com/joe-lad" target="_blank" class="social-link">
-        <i class="bi bi-github"></i> GitHub
-      </a>
-      <a href="https://linkedin.com/in/joe-knight-ab10a0405" target="_blank" class="social-link">
-        <i class="bi bi-linkedin"></i> LinkedIn
-      </a>
-      <a href="https://old.jknight.uk" target="_blank" class="social-link">
-        <i class="bi bi-globe"></i> Legacy Portfolio
-      </a>
-      <a href="/joe-knight-cv.pdf" download="Joe-Knight-CV.pdf" class="social-link">
-        <i class="bi bi-file-earmark-arrow-down"></i> Download CV
-      </a>
+
+  <div>
+    
+    <div class="sidebar-sliders mb-3">
+      <div class="range-control">
+        <label for="bg-count">Count</label>
+        <input type="range" id="bg-count" min="20" max="200" value="48" step="1">
+      </div>
+
+      <div class="range-control">
+        <label for="bg-speed">Speed</label>
+        <input type="range" id="bg-speed" min="1" max="40" value="4" step="1">
+      </div>
+
+      <div class="range-control">
+        <label for="bg-force">Force</label>
+        <input type="range" id="bg-force" min="0" max="20" value="2.5" step="0.001">
+      </div>
+
+      <div class="range-control">
+        <label for="bg-area">Area</label>
+        <input type="range" id="bg-area" min="10" max="600" value="160" step="1">
+      </div>
     </div>
-    <button id="theme-toggle" class="theme-toggle">🌙</button>
+
+    <div class="sidebar-bottom">
+      <div class="sidebar-socials">
+        <a href="https://github.com/joe-lad" target="_blank" class="social-link">
+          <i class="bi bi-github"></i> GitHub
+        </a>
+        <a href="https://linkedin.com/in/joe-knight-ab10a0405" target="_blank" class="social-link">
+          <i class="bi bi-linkedin"></i> LinkedIn
+        </a>
+        <a href="https://old.jknight.uk" target="_blank" class="social-link">
+          <i class="bi bi-globe"></i> Legacy Portfolio
+        </a>
+        <a href="/joe-knight-cv.pdf" download="Joe-Knight-CV.pdf" class="social-link">
+          <i class="bi bi-file-earmark-arrow-down"></i> Download CV
+        </a>
+      </div>
+      <button id="theme-toggle" class="theme-toggle">🌙</button>
+    </div>
   </div>
 </aside>
