@@ -1,18 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    get "projects/index"
-    get "projects/new"
-    get "projects/create"
-    get "projects/edit"
-    get "projects/update"
-    get "projects/destroy"
-    get "comments/index"
-    get "dashboard/index"
-  end
-  get "projects/index"
-  get "projects/show"
-  get "comments/create"
-  get "pages/home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -30,6 +16,7 @@ Rails.application.routes.draw do
   resources :projects, only: [ :show ]
 
   get "/uptime_stats", to: "uptime#stats"
+  get "tags/search", to: "tags#search"
 
   namespace :admin do
     root "dashboard#index"
