@@ -7,12 +7,16 @@
       <div class="card-body">
         <h5 class="card-title fw-bold"><%= project.title %></h5>
         <h6 class="card-subtitle mb-2"><%= project.subtitle %></h6>
-        <p class="card-text">
-          <b>Key words:</b>
-          <% project.tags.each do |tag| %>
-              <%= tag.name + (tag == project.tags.last ? "." : ",") %>
-          <% end %>
-        </p>
+        <% if project.tags.any? %>
+          <p class="card-text">
+            <b>Key words:</b>
+            <% project.tags.each do |tag| %>
+                <%= tag.name + (tag == project.tags.last ? "." : ",") %>
+            <% end %>
+          </p>
+        <% else %>
+          <div class="card-text"><%= truncate(strip_tags(project.description.to_s), length: 160) %></div>
+        <% end %>
       </div>
     </div>
   <% end %>
