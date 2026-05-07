@@ -39,7 +39,7 @@ module Admin
     private
 
     def project_params
-      params.require(:project).permit(:title, :subtitle, :featured, :description, :cover_photo)
+      params.require(:project).permit(:title, :subtitle, :featured, :description, :cover_photo, :tag_names)
     end
   end
 end

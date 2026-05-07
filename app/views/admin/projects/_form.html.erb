@@ -11,6 +11,27 @@
     <%= f.label :description, class: "form-label" %>
     <%= f.rich_text_area :description, class: "form-control" %>
   </div>
+
+  <div class="mb-3">
+    <%= f.label :tag_names, "Keywords", class: "form-label" %>
+    <div data-controller="tag-input" class="position-relative">
+      <div class="d-flex flex-wrap gap-2 mb-2" data-tag-input-target="tagList">
+        <% project.tags.each do |tag| %>
+          <span class="tag-badge">
+            <%= tag.name %>
+            <button type="button" class="tag-remove" data-action="click->tag-input#remove" data-tag-input-name-param="<%= tag.name %>">×</button>
+          </span>
+        <% end %>
+      </div>
+      <input type="text" class="form-control tag-text-input" placeholder="Type a keyword..."
+        data-tag-input-target="input"
+        data-action="input->tag-input#suggest keydown->tag-input#handleKey"
+        autocomplete="off">
+      <ul class="tag-suggestions" data-tag-input-target="suggestions" style="display:none"></ul>
+      <input type="hidden" name="project[tag_names]" data-tag-input-target="hidden">
+    </div>
+  </div>
+
   <div class="mb-3">
     <%= f.label :cover_photo, class: "form-label" %>
     <%= f.file_field :cover_photo, class: "form-control", accept: "image/*" %>
