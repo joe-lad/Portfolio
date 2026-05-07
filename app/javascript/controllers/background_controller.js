@@ -67,8 +67,9 @@ export default class extends Controller {
 
     // Slider events — only wire up if the sliders exist on the page
     document.getElementById('bg-count')?.addEventListener('input', e => {
+      let shapes = this.buildShapes()
       const n = parseInt(e.target.value)
-      while(this.shapes.length < n) this.shapes.push(this.buildShapes()[0])
+      while(this.shapes.length < n) this.shapes.push(shapes[Math.floor(Math.random() * shapes.length)])
       if(this.shapes.length > n) this.shapes = this.shapes.slice(0, n)
     })
 
